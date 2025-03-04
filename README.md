@@ -1,5 +1,3 @@
-# Concept-Drift-Detection-and-Re-Training-of-LSTMs-
-An adaptive Machine Leanring playbook, with reccomended metrics and logic for LSTM retraining. Example used is from a real-world, predictive anomaly detection problem, where expected output data-distribtion would skew over time (soot-accumulation and heat-transfer related)
 # Adaptive Concept Drift Detection and Retraining for Marine Vessel Exhaust Monitoring
 
 This repository demonstrates an end-to-end solution for handling concept drift in marine vessel exhaust monitoring systems. Our approach enriches sensor data (e.g., gas temperature, engine RPM, back-pressure, derived gas velocity) and uses an LSTM model to predict normal operations. Reconstruction losses are monitored and analyzed using the Wasserstein distance to detect drift, which then triggers retraining. The solution is implemented with robust MLOps practices on a cloud platform (e.g., Databricks) and versioned using MLflow.
