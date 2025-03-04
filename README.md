@@ -1,6 +1,6 @@
 # Adaptive Concept Drift Detection and Retraining for Marine Vessel Exhaust Monitoring
 
-This repository demonstrates an end-to-end solution for handling concept drift in marine vessel exhaust monitoring systems. Our approach goes beyond generic drift detection by enriching sensor data (e.g., gas temperature, engine RPM, back-pressure, derived gas velocity), integrating domain-specific mechanistic insights, and using the LSTM’s reconstruction losses—analyzed via advanced metrics like the Wasserstein distance—to detect drift. The solution is written as an implementation on a pre-built ML pipeline.
+This repository demonstrates an end-to-end solution for handling concept drift in marine vessel exhaust monitoring systems. Our approach goes beyond generic drift detection by enriching sensor data (e.g., gas temperature, engine RPM, back-pressure, derived gas velocity), integrating domain-specific mechanistic insights, and using the LSTM’s reconstruction losses—analyzed via advanced metrics like the Wasserstein distance—to detect drift. 
 
 ---
 
