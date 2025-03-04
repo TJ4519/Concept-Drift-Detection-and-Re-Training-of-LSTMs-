@@ -89,6 +89,57 @@ However, gradual changes in the exhaust system—such as the insulating effect o
   - **Ideal Gas Law Approach:** Derive an effective gas constant from gas temperature, RPM, and gas velocity.
 - **Benefit:**  
   Provides interpretable, physically grounded signals of drift that complement purely statistical measures.
+- **Implementation**
+- ## Mechanistic Feature Engineering Implementation
+
+In our solution, we don’t rely solely on generic drift tests or on reconstruction errors computed from the LSTM model. Instead, we leverage domain knowledge to derive *mechanistic features* that provide interpretable, physically grounded signals of drift. These signals complement our statistical drift measures (like the Wasserstein distance over reconstruction losses) and help us pinpoint when our model is no longer capturing the “new normal” operating conditions.
+
+Below we detail two approaches we use:
+
+### 1. Arrhenius-Inspired Approach to Estimate Effective Activation Energy
+
+#### Background
+The Arrhenius equation describes how the rate of a chemical reaction depends on temperature:
+  
+\[
+k = A \cdot \exp\left(-\frac{E_a}{R \cdot T}\right)
+\]
+
+- **\(k\)**: Reaction (or heat-transfer) rate  
+- **\(A\)**: Pre-exponential factor  
+- **\(E_a\)**: Activation energy  
+- **\(R\)**: Universal gas constant  
+- **\(T\)**: Absolute temperature
+
+In the context of our exhaust system, changes in soot accumulation alter the effective heat transfer properties. We assume that under normal conditions the effective activation energy \(E_a\) is stable. A systematic change in the estimated \(E_a\) (derived from sensor data) can signal that the insulation properties have changed, which is a proxy for drift.
+
+#### Implementation Steps
+1. **Data Collection:**  
+   - Gather sensor data: exhaust gas temperature (\(T\)) and a proxy for the reaction rate \(k\) (e.g., a derived metric such as a normalized reconstruction error or a process-specific indicator).
+
+2. **Linearization:**  
+   - Taking the natural logarithm of the Arrhenius equation gives:
+  
+     \[
+     \ln(k) = \ln(A) - \frac{E_a}{R} \cdot \frac{1}{T}
+     \]
+  
+   - This is a linear relationship between \(\ln(k)\) and \(1/T\), with slope \(-E_a/R\).
+
+3. **Estimation via Regression:**  
+   - For each 15-minute batch, compute \(1/T\) and \(\ln(k)\) for your data points.
+   - Fit a linear regression model:  
+     **Inputs:** \(x = 1/T\)  
+     **Target:** \(y = \ln(k)\)
+   - Estimate the slope \(m\).  
+     Then compute the effective activation energy:
+  
+     \[
+     E_a = -m \times R
+     \]
+  
+4. **Usage:**  
+   - Log the estimated \(E_a\) over time and use deviations from the baseline (established during normal operations) as an additional drift signal.
 
 ### Modified Loss Function
 
