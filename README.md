@@ -27,7 +27,7 @@ This repository demonstrates an end-to-end solution for handling concept drift i
 
 ## Problem Statement
 
-Marine vessel exhaust monitoring is crucial for early fault detection. Our current LSTM model predicts gas temperature based on sensor data and flags anomalies via reconstruction losses. However, gradual changes—such as soot buildup that alters exhaust heat-transfer properties—cause the data distribution to drift, leading to outdated models and unreliable anomaly detection.
+Sensory data anomaly detection is fundamental for early fault detection. In Marine vessels, deep-learning models like LSTMs can be trained to predict normal operating conditions on, amongst other features, engine outlet gas temperatures. By running inference on sensory data per feature-group, in 15mins batches for instance, can be used to compute reconstruction error rates for a vessel. These reconstruction losses (predicted (t-15) vs real-time (t) are used as signals to flag anomalous readings to the central control unit/dashboard - critical anomalies preceded catastrophic failure. However, gradual changes in the expected/normal data distribution—such as soot buildup that alters exhaust heat-transfer properties of an engine exhaust pipeline—cause the data distribution to drift, leading to outdated models and unreliable anomaly detection. Soot-driven changes to the heat-transfer rates of an exhaust pose not only a modeling and deep-learning prediction challenge, but soot-build up poses a fire risk as it can ignite if the build-up reaches a sufficient thickness under ideal heat-transfer rates. This MUST be avoided.
 
 **Our Goals:**
 - **Enrich the Feature Set:** Incorporate additional signals (engine RPM, back-pressure, derived gas velocity) and derive mechanistic features to capture the physical state of the exhaust.
@@ -129,7 +129,3 @@ Marine vessel exhaust monitoring is crucial for early fault detection. Our curre
 - **Versioning and Rollbacks:**  
   - Use MLflow for model versioning and maintain logs of drift metrics and normalization parameters.
   - Set up dashboards for continuous monitoring.
-
----
-
-
