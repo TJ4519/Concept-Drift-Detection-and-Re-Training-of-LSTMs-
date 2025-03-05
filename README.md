@@ -1,4 +1,4 @@
-# Adaptive Concept Drift Detection and Retraining for Industrial Time-Series Data in Marine Vessel Exhaust Monitoring
+# Drift Detection & Adaptive Retraining for LSTSM based anomaly detection: Case Study in Marine Vessel Exhaust Monitoring
 
 ## Introduction
 
